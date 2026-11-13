@@ -392,10 +392,11 @@ footer { text-align: center; padding-block: 0 48px; font-family: var(--hand); fo
   window.onYouTubeIframeAPIReady = function () {
     player = new YT.Player('yt', {
       videoId: 'qfXfHRZEBeg',
-      playerVars: { playsinline: 1, controls: 0, loop: 1, playlist: 'qfXfHRZEBeg' },
+      playerVars: { playsinline: 1, controls: 0, start: 11 },
       events: {
         onReady: function () { ready = true; if (wantPlay) play(); },
         onStateChange: function (e) {
+          if (e.data === YT.PlayerState.ENDED) { player.seekTo(11, true); player.playVideo(); return; }
           var on = e.data === YT.PlayerState.PLAYING;
           musicBtn.classList.toggle('playing', on);
           musicBtn.textContent = on ? '♪' : '▶';
